@@ -23,8 +23,8 @@ public class streamTools {
 			//字节数组输出流，关闭无效
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
 			//设置每次读取的字节长度
-			int len = 0;
-			byte[] buffer = new byte[64];
+			int len = -1;
+			byte[] buffer = new byte[1024];
 			//读取输入流里面的信息，每次读1024个字节
 			while((len = is.read(buffer))!=-1){
 				//往临时缓冲不去里面写
