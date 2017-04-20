@@ -41,6 +41,7 @@ public class SplashActivity extends Activity {
 	private String nVersionurl;
 	private String nVersionDesc;
 	private String nVersionName;
+	private int nVersionCode;
 	
 	//本地获取的信息
 	private String mVersionName;
@@ -59,8 +60,8 @@ public class SplashActivity extends Activity {
 				break;
 			case OTHRT_EXCEPTION:
 				// 出现异常弹出toast
-				enterHome();
-				//Toast.makeText(getApplicationContext(), "请稍后再试", 0).show();
+				//enterHome();
+				Toast.makeText(getApplicationContext(), "请稍后再试", 0).show();
 				break;
 			}
 		};
@@ -107,11 +108,11 @@ public class SplashActivity extends Activity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// 当点击确定按钮的时候进入下载安装新版本
-						 if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
-						 {
+						// if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
+						// {
 							path = Environment.getExternalStorageDirectory().getAbsolutePath()
 									 +File.separator+"mobilesafe.apk";
-						 }
+						 //}
 						DownLoadUtils down = new DownLoadUtils();
 						down.downapk(nVersionurl,path);
 					}
@@ -136,7 +137,6 @@ public class SplashActivity extends Activity {
 	 */
 	private void initData() {
 			new Thread(){
-				private int nVersionCode;
 
 				public void run() {
 					String path = "http://192.168.1.101:8080/updataInfo.json";
@@ -160,12 +160,17 @@ public class SplashActivity extends Activity {
 							// 将流转化为字符串
 							String temp = streamTools.streamToString(is);
 							// 解析json字符串，抽成一个工具类,获取服务器端的版本名称，版本号，以及下载地址，版本描述
+							Log.i(TAG, temp);
 							JSONObject json = new JSONObject(temp);
 							nVersionName = json.getString("versionName");
 							nVersionDesc = json.getString("versionDesc");
 							nVersionurl = json.getString("versionurl");
 							nVersionCode = Integer.parseInt(json
 									.getString("versionCode"));
+							Log.i(TAG, nVersionName);
+							Log.i(TAG, nVersionName);
+							Log.i(TAG, nVersionDesc);
+							Log.i(TAG, nVersionurl);
 							is.close();
 							// 服务器的版本号与本地版本号做比较
 							if (mVersionCode < nVersionCode) {

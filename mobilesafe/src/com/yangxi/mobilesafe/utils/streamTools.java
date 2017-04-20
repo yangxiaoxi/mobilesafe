@@ -36,7 +36,8 @@ public class streamTools {
 			//获取临时缓冲区里面的字节
 			byte[] result = os.toByteArray();
 			//由于服务器使用的是iso-8859-1的编码方式，因为有汉字，所以这里的解析改为gbk来解析
-			String temp = new  String(result,"gbk");
+			//String temp = new  String(result,"gbk");
+			String temp = new  String(result);
 			return temp;
 		} catch (Exception e) {
 			e.printStackTrace();
