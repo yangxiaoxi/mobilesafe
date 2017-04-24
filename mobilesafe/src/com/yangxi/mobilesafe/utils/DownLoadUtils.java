@@ -14,7 +14,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 
 public class DownLoadUtils {
-	public void downapk(Context context,String url ,String target){
+	public void downapk(String url ,String target){
 		 //创建httputils对象
 		 HttpUtils http = new HttpUtils();
 		 http.download(url,target, new RequestCallBack<File>() {

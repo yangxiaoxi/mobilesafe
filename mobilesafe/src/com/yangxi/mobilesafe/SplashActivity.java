@@ -111,15 +111,14 @@ public class SplashActivity extends Activity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// 当点击确定按钮的时候进入下载新版本
-						 if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
-						 {
-							String path = Environment.getExternalStorageDirectory().getAbsolutePath()
-									 +File.separator+"mobilesafe.apk";
-						 
-						//DownLoadUtils down = new DownLoadUtils();
+						// if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
+			         String target = Environment.getExternalStorageDirectory().getAbsolutePath()
+							 +File.separator+"mobilesafe.apk";
+						DownLoadUtils down = new DownLoadUtils();
 							//下载新版本
-						  downapk(nVersionurl,path);
-					    }
+						down.downapk(nVersionurl, target);
+						Toast.makeText(getApplicationContext(), "执行了下载的方法",0).show();
+					  
 					}
 				});
 		builder.setNegativeButton("稍后再说",
@@ -137,49 +136,6 @@ public class SplashActivity extends Activity {
 	
 	
 	
-
-	/**
-	 * @param url   下载目标文件的路径
-	 * @param target  下载的文件所保存的位置
-	 */
-	public void downapk(String url, String target) {
-		 
-		 //创建httputils对象
-		 HttpUtils http = new HttpUtils();
-		 http.download(url,target, new RequestCallBack<File>() {
-			@Override
-			public void onSuccess(ResponseInfo<File>  responseinfo) {
-				 //下载成功时执行的方法法
-				//File file = responseinfo.result;
-				Log.i("DownLoadUtils", "下载完成");
-				Toast.makeText(getApplicationContext(), "下载完成了", 0).show();
-			}
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				 //下载失败时执行的方法
-				Log.i("DownLoadUtils", "下载失败");
-			}
-			@Override
-			public void onStart() {
-				 //开始下载
-				Log.i("DownLoadUtils", "开始下载");
-				super.onStart();
-			} 
-			@Override
-			public void onLoading(long total, long current, boolean isUploading) {
-				 //正在下载
-				Log.i("DownLoadUtils", "下载中...");
-				super.onLoading(total, current, isUploading);
-			}
-			
-		});
-			 
-		 
-    }
-
-
-
-
 	/**
 	 * 初始化数据，连接网络获取服务器返回的数据
 	 */
