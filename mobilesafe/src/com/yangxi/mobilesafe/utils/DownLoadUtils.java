@@ -2,6 +2,7 @@ package com.yangxi.mobilesafe.utils;
 
 import java.io.File;
 
+import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View.OnLongClickListener;
@@ -13,14 +14,10 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 
 public class DownLoadUtils {
-  
-	 private String path;
-
-	public void downapk(String url ,String target){
-		
+	public void downapk(Context context,String url ,String target){
 		 //创建httputils对象
 		 HttpUtils http = new HttpUtils();
-		 http.download(url, path, new RequestCallBack<File>() {
+		 http.download(url,target, new RequestCallBack<File>() {
 			@Override
 			public void onSuccess(ResponseInfo<File>  responseinfo) {
 				 //下载成功时执行的方法法

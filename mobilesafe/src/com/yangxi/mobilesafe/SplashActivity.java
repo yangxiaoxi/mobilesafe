@@ -7,6 +7,10 @@ import java.net.URL;
 
 import org.json.JSONObject;
 
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.yangxi.mobilesafe.utils.DownLoadUtils;
 import com.yangxi.mobilesafe.utils.getVersionInfoUtils;
 import com.yangxi.mobilesafe.utils.streamTools;
@@ -98,26 +102,27 @@ public class SplashActivity extends Activity {
 	protected void showDailog() {
 		// 弹出一个对话框，获取对话框的构建器
 		AlertDialog.Builder builder = new Builder(this);
-		builder.setIcon(R.drawable.icon);
+		builder.setIcon(android.R.drawable.btn_default_small);
 		builder.setTitle("版本更新");
+		builder.setMessage(nVersionDesc);
 		// 当点击立即更新按钮时执行的代码
 		builder.setPositiveButton("立即更新",
 				new DialogInterface.OnClickListener() {
-					private String path;
-
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						// 当点击确定按钮的时候进入下载安装新版本
-						// if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
-						// {
-							path = Environment.getExternalStorageDirectory().getAbsolutePath()
+						// 当点击确定按钮的时候进入下载新版本
+						 if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
+						 {
+							String path = Environment.getExternalStorageDirectory().getAbsolutePath()
 									 +File.separator+"mobilesafe.apk";
-						 //}
-						DownLoadUtils down = new DownLoadUtils();
-						down.downapk(nVersionurl,path);
+						 
+						//DownLoadUtils down = new DownLoadUtils();
+							//下载新版本
+						  downapk(nVersionurl,path);
+					    }
 					}
 				});
-		builder.setNegativeButton("稍后更新",
+		builder.setNegativeButton("稍后再说",
 				new DialogInterface.OnClickListener() {
 
 					@Override
@@ -127,19 +132,64 @@ public class SplashActivity extends Activity {
 					}
 
 				});
+		builder.show();
 	}
 	
 	
 	
 
 	/**
+	 * @param url   下载目标文件的路径
+	 * @param target  下载的文件所保存的位置
+	 */
+	public void downapk(String url, String target) {
+		 
+		 //创建httputils对象
+		 HttpUtils http = new HttpUtils();
+		 http.download(url,target, new RequestCallBack<File>() {
+			@Override
+			public void onSuccess(ResponseInfo<File>  responseinfo) {
+				 //下载成功时执行的方法法
+				//File file = responseinfo.result;
+				Log.i("DownLoadUtils", "下载完成");
+				Toast.makeText(getApplicationContext(), "下载完成了", 0).show();
+			}
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				 //下载失败时执行的方法
+				Log.i("DownLoadUtils", "下载失败");
+			}
+			@Override
+			public void onStart() {
+				 //开始下载
+				Log.i("DownLoadUtils", "开始下载");
+				super.onStart();
+			} 
+			@Override
+			public void onLoading(long total, long current, boolean isUploading) {
+				 //正在下载
+				Log.i("DownLoadUtils", "下载中...");
+				super.onLoading(total, current, isUploading);
+			}
+			
+		});
+			 
+		 
+    }
+
+
+
+
+	/**
 	 * 初始化数据，连接网络获取服务器返回的数据
 	 */
 	private void initData() {
+		
 			new Thread(){
-
 				public void run() {
 					String path = "http://192.168.1.101:8080/updataInfo.json";
+					//记录开始执run方法的时间戳
+					long start = System.currentTimeMillis();
 					// 创建消息
 					Message msg = Message.obtain();
 					// 创建URL对象，指定要访问的服务器地址
@@ -150,7 +200,9 @@ public class SplashActivity extends Activity {
 								.openConnection();
 						// 设置连接网络的方式
 						urlconn.setRequestMethod("GET");
-						// 设置网络超时时间
+						//设置请求超时
+						urlconn.setConnectTimeout(2000);
+						// 设置网络读取超时时间
 						urlconn.setReadTimeout(5000);
 						// 获取服务器返回码
 						int code = urlconn.getResponseCode();
@@ -185,6 +237,16 @@ public class SplashActivity extends Activity {
 						msg.what = OTHRT_EXCEPTION;
 						e.printStackTrace();
 					} finally {
+						//记录执行run方法结束后的时间戳
+					 long end = System.currentTimeMillis();
+					 //当网络读取时间小于5秒。强制睡眠够5秒
+					 if((end - start) < 5000){
+						 try {
+							Thread.sleep(5000 - (end - start));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					 }
 						handler.sendMessage(msg);
 					}
 				};
