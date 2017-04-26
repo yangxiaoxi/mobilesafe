@@ -39,6 +39,7 @@ public class DownLoadUtils {
 				mProgressDialog.dismiss();
 				File file = responseinfo.result;
 				Log.i("DownLoadUtils", "下载完成");
+				installApk(file);
 			}
 
 			@Override
@@ -69,6 +70,19 @@ public class DownLoadUtils {
 		});
 
 	}
+	
+	public void installApk(File file) {
+		Intent intent = new Intent();
+		// 使用意图开启安装应用的界面
+		intent.setAction("android.intent.action.VIEW");
+		intent.addCategory("android.intent.category.DEFAULT");
+		intent.setDataAndType(Uri.fromFile(file),
+				"application/vnd.android.package-archive");
+		context.startActivityForResult(intent,1);
+		
+	}
+
+
 	
 	/**
 	 * 初始化一个ProgressDialog

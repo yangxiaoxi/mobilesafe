@@ -110,23 +110,17 @@ public class SplashActivity extends Activity {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						target = Environment
-								.getExternalStorageDirectory()
+						target = Environment.getExternalStorageDirectory()
 								.getAbsolutePath()
-								+ File.separator + "mobilesafe.apk";
-
-						// initProgressDialog(this);
+								+ File.separator
+								+ "mobilesafe.apk";
+						dialog.dismiss();
 						final DownLoadUtils down = new DownLoadUtils(
 								SplashActivity.this);
-
-						dialog.dismiss();
 						// 初始化一个进度条对话框
 						down.initProgressDialog();
 						// 下载新版本
 						down.downapk(nVersionurl, target);
-						// 安装新版本
-						File file = new File(target);
-						installApk(file);
 					}
 
 				});
@@ -154,17 +148,6 @@ public class SplashActivity extends Activity {
 			}
 		});
 		builder.show();
-	}
-
-	protected void installApk(File file) {
-		Intent intent = new Intent();
-		// 使用意图开启安装应用的界面
-		intent.setAction("android.intent.action.VIEW");
-		intent.addCategory("android.intent.category.DEFAULT");
-		intent.setDataAndType(Uri.fromFile(file),
-				"application/vnd.android.package-archive");
-		this.startActivity(intent);
-
 	}
 
 	/**
@@ -254,6 +237,12 @@ public class SplashActivity extends Activity {
 		// 将本地的版本名称显示在TextView 控件上面
 		tv_version_name.setText("版本名称：" + mVersionName);
 		pb_splash = (ProgressBar) findViewById(R.id.pb_splash);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		enterHome();
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	@Override
