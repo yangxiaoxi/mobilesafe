@@ -44,8 +44,7 @@ public class SplashActivity extends Activity {
 	private static final int MESSAGE_SHOW_DIALOG = 100;
 	private static final int MESSAGE_ENTER_HOME = 101;
 	private static final int OTHRT_EXCEPTION = 102;
-	//protected static final String ProgressDialog = null;
-	private ProgressDialog mProgressDialog;
+	// private ProgressDialog mProgressDialog;
 	// 服务器获取的信息
 	private String nVersionurl;
 	private String nVersionDesc;
@@ -76,7 +75,6 @@ public class SplashActivity extends Activity {
 		};
 
 	};
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -108,23 +106,27 @@ public class SplashActivity extends Activity {
 		// 当点击立即更新按钮时执行的代码
 		builder.setPositiveButton("立即更新",
 				new DialogInterface.OnClickListener() {
+					private String target;
+
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						// 当点击确定按钮的时候进入下载新版本
-						// if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
-						String target = Environment
+						target = Environment
 								.getExternalStorageDirectory()
 								.getAbsolutePath()
 								+ File.separator + "mobilesafe.apk";
-						//初始化一个进度条对话框
-						initProgressDialog();
-						DownLoadUtils down = new DownLoadUtils();
-						// 下载新版本
-						down.downapk(mProgressDialog ,nVersionurl, target);
-						// 安装新版本
-						File file =new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+"mobilesafe.apk");
-						installApk(file);
 
+						// initProgressDialog(this);
+						final DownLoadUtils down = new DownLoadUtils(
+								SplashActivity.this);
+
+						dialog.dismiss();
+						// 初始化一个进度条对话框
+						down.initProgressDialog();
+						// 下载新版本
+						down.downapk(nVersionurl, target);
+						// 安装新版本
+						File file = new File(target);
+						installApk(file);
 					}
 
 				});
@@ -154,23 +156,15 @@ public class SplashActivity extends Activity {
 		builder.show();
 	}
 
-	 
-
-	protected void initProgressDialog() {
-		mProgressDialog = new ProgressDialog(this);
-		mProgressDialog.setMessage("准备下载...");
-		mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-		mProgressDialog.show();
-	}
-
 	protected void installApk(File file) {
 		Intent intent = new Intent();
-		//使用意图开启安装应用的界面
+		// 使用意图开启安装应用的界面
 		intent.setAction("android.intent.action.VIEW");
 		intent.addCategory("android.intent.category.DEFAULT");
-		intent. setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-		 this.startActivity(intent);
-		
+		intent.setDataAndType(Uri.fromFile(file),
+				"application/vnd.android.package-archive");
+		this.startActivity(intent);
+
 	}
 
 	/**
