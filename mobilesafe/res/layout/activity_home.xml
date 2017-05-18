@@ -5,10 +5,42 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/tv_test"
+        android:text="功能列表"
+        style="@style/TitleStyle"/>
+         
+
+    <!--
+        <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:text="我是主界面"
-        />
+        android:layout_height="wrap_content"
+        android:text="主银，我是你的手机小卫士，有什么问题，小的都会帮你解决的哦！！"
+        android:textSize="18sp"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+    -->
+    
+    
+   <!--使用自定义控件实现文字的跑马灯效果 -->
+    <com.yangxi.mobilesafe.view.myTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="主银，我是你的手机小卫士，有什么问题，小的都会帮你解决的哦！！"
+        android:textSize="18sp" />
+  
+    
+    <GridView 
+        android:layout_marginTop="20dp"
+        android:id="@+id/gv_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="3"
+        android:paddingLeft="25dp"
+        android:gravity="center"
+        android:verticalSpacing="5dp"
+        ></GridView>
 
 </LinearLayout>

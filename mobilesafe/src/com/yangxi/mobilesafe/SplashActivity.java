@@ -68,8 +68,8 @@ public class SplashActivity extends Activity {
 				break;
 			case OTHRT_EXCEPTION:
 				// 出现异常弹出toast
-				// enterHome();
-				Toast.makeText(getApplicationContext(), "请稍后再试", 0).show();
+				 enterHome();
+				Toast.makeText(getApplicationContext(), "服务器忙，请稍后再试", 0).show();
 				break;
 			}
 		};

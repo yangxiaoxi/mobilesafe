@@ -21,21 +21,33 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int icon=0x7f020001;
-        public static final int smalogo=0x7f020002;
-        public static final int splash2=0x7f020003;
+        public static final int eight=0x7f020000;
+        public static final int first=0x7f020001;
+        public static final int five=0x7f020002;
+        public static final int four=0x7f020003;
+        public static final int ic_launcher=0x7f020004;
+        public static final int icon=0x7f020005;
+        public static final int nine=0x7f020006;
+        public static final int second=0x7f020007;
+        public static final int seven=0x7f020008;
+        public static final int six=0x7f020009;
+        public static final int smalogo=0x7f02000a;
+        public static final int splash2=0x7f02000b;
+        public static final int third=0x7f02000c;
     }
     public static final class id {
-        public static final int action_settings=0x7f080004;
+        public static final int action_settings=0x7f080006;
+        public static final int gv_home=0x7f080000;
+        public static final int iv_home_grid_image=0x7f080004;
         public static final int iv_splash=0x7f080001;
         public static final int pb_splash=0x7f080003;
-        public static final int tv_test=0x7f080000;
+        public static final int tv_home_grid_title=0x7f080005;
         public static final int tv_version_name=0x7f080002;
     }
     public static final class layout {
         public static final int activity_home=0x7f030000;
         public static final int activity_splash=0x7f030001;
+        public static final int home_grid_item=0x7f030002;
     }
     public static final class menu {
         public static final int splash=0x7f070000;
@@ -49,11 +61,13 @@ public final class R {
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
     
 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
+
         
 
         Base application theme for API 11+. This theme completely replaces
@@ -72,5 +86,8 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f060001;
+        /**  自定义样式 
+         */
+        public static final int TitleStyle=0x7f060002;
     }
 }
