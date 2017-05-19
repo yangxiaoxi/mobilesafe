@@ -36,12 +36,16 @@ public final class R {
         public static final int third=0x7f02000c;
     }
     public static final class id {
-        public static final int action_settings=0x7f080006;
+        public static final int action_settings=0x7f08000a;
+        public static final int cb_chose=0x7f080009;
         public static final int gv_home=0x7f080000;
         public static final int iv_home_grid_image=0x7f080004;
         public static final int iv_splash=0x7f080001;
+        public static final int ll_setting_item=0x7f080006;
         public static final int pb_splash=0x7f080003;
+        public static final int tv_des=0x7f080008;
         public static final int tv_home_grid_title=0x7f080005;
+        public static final int tv_title=0x7f080007;
         public static final int tv_version_name=0x7f080002;
     }
     public static final class layout {
@@ -49,6 +53,7 @@ public final class R {
         public static final int activity_setting=0x7f030001;
         public static final int activity_splash=0x7f030002;
         public static final int home_grid_item=0x7f030003;
+        public static final int setting_activity_item=0x7f030004;
     }
     public static final class menu {
         public static final int splash=0x7f070000;
