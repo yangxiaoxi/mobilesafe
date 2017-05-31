@@ -10,8 +10,9 @@
     
     <!-- 使用自定义组合控件 -->
     <com.yangxi.mobilesafe.view.settingActivityItem
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:id="@+id/siv_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     </com.yangxi.mobilesafe.view.settingActivityItem>
 
 </LinearLayout>
