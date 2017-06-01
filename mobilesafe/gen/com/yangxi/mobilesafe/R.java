@@ -9,6 +9,30 @@ package com.yangxi.mobilesafe;
 
 public final class R {
     public static final class attr {
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int Title=0x7f010000;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int desOff=0x7f010002;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int desOn=0x7f010001;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -97,4 +121,65 @@ public final class R {
          */
         public static final int TitleStyle=0x7f060002;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a settingActivityItem.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #settingActivityItem_Title com.yangxi.mobilesafe:Title}</code></td><td></td></tr>
+           <tr><td><code>{@link #settingActivityItem_desOff com.yangxi.mobilesafe:desOff}</code></td><td></td></tr>
+           <tr><td><code>{@link #settingActivityItem_desOn com.yangxi.mobilesafe:desOn}</code></td><td></td></tr>
+           </table>
+           @see #settingActivityItem_Title
+           @see #settingActivityItem_desOff
+           @see #settingActivityItem_desOn
+         */
+        public static final int[] settingActivityItem = {
+            0x7f010000, 0x7f010001, 0x7f010002
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.yangxi.mobilesafe.R.attr#Title}
+          attribute's value can be found in the {@link #settingActivityItem} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:Title
+        */
+        public static final int settingActivityItem_Title = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.yangxi.mobilesafe.R.attr#desOff}
+          attribute's value can be found in the {@link #settingActivityItem} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:desOff
+        */
+        public static final int settingActivityItem_desOff = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.yangxi.mobilesafe.R.attr#desOn}
+          attribute's value can be found in the {@link #settingActivityItem} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:desOn
+        */
+        public static final int settingActivityItem_desOn = 1;
+    };
 }

@@ -18,8 +18,9 @@ public class SettingActivity extends Activity {
 		setContentView(R.layout.activity_setting);
 	// View view = View.inflate(getApplicationContext(), R.layout.setting_activity_item,null);
 	settingActivityItem itemView = (settingActivityItem)this.findViewById(R.id.siv_item);
-	int b = com.yangxi.mobilesafe.R.id.siv_item ;
-	Toast.makeText(getApplicationContext(), "id:"+b,0).show();
+	
+	 int b = com.yangxi.mobilesafe.R.id.siv_item ;
+	 Toast.makeText(getApplicationContext(), "id:"+b,0).show();
 //	//System.out.println(b);
 //	itemView.setOnClickListener(new OnClickListener() {
 //		
@@ -30,6 +31,4 @@ public class SettingActivity extends Activity {
 //		}
 //	});
 }
-
-	 
 }

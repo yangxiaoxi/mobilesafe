@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mobilesafe="http://schemas.android.com/apk/res/com.yangxi.mobilesafe"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -12,7 +13,11 @@
     <com.yangxi.mobilesafe.view.settingActivityItem
         android:id="@+id/siv_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        mobilesafe:Title="自定义更新设置"
+        mobilesafe:desOn="自动更新已开启"
+        mobilesafe:desOff="自动更新已关闭"
+        >
     </com.yangxi.mobilesafe.view.settingActivityItem>
 
 </LinearLayout>
