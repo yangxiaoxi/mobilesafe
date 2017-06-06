@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+   
     <TextView
         style="@style/TitleStyle"
         android:text="设置中心" />
@@ -17,7 +17,8 @@
         mobilesafe:Title="自定义更新设置"
         mobilesafe:desOn="自动更新已开启"
         mobilesafe:desOff="自动更新已关闭"
-        >
-    </com.yangxi.mobilesafe.view.settingActivityItem>
+        />
+     
 
 </LinearLayout>
+    

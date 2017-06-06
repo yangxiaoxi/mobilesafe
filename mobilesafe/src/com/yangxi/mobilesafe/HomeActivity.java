@@ -60,7 +60,11 @@ public class HomeActivity extends Activity {
 				case 7:
 					break;
 				case 8:
+					try{
 					enterSettingActivity();
+					}catch (Exception e) {
+						enterSettingActivity();
+					}
 					break;
 
 				}
