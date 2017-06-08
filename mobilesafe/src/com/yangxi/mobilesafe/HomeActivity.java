@@ -1,5 +1,8 @@
 package com.yangxi.mobilesafe;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import com.yangxi.mobilesafe.utils.sharePraferenceUtil;
 
 import android.app.Activity;
@@ -7,7 +10,9 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -24,16 +29,20 @@ import android.widget.Toast;
 public class HomeActivity extends Activity {
 	GridView mgv_home;
 	sharePraferenceUtil sp;
+	private EditText et_setpsw;
+	private EditText et_confirmpsw;
+	private String secound_password;
+	private AlertDialog setDialog;
+
 	// 舒适化数据
 	private String[] title = { "手机防盗", "通信卫士", "软件管理", "进程管理 ", "流量统计", "手机杀毒",
 			"缓存清理", "高级工具", "设置中心" };
 	private int[] image = { R.drawable.first, R.drawable.second,
 			R.drawable.third, R.drawable.four, R.drawable.five, R.drawable.six,
 			R.drawable.seven, R.drawable.eight, R.drawable.nine };
-	private EditText et_setpsw;
-	private EditText et_confirmpsw;
-	private String secound_password;
-
+	private EditText et_secound_confirmpsw;
+	private String md5psd;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -93,10 +102,11 @@ public class HomeActivity extends Activity {
 		// 判断sp里面是否保存了密码，如果保存了则是第二次
 		sp = new sharePraferenceUtil();
 		final String password = sp.getString(getApplicationContext());
+		//Log.i("HomeActivity", password);
 		if (TextUtils.isEmpty(password)) {
 			// 当密码为空时，则是第一次点击弹出设置密码对话框
 			Builder builder = new AlertDialog.Builder(this);
-			final AlertDialog setDialog = builder.create();
+			setDialog = builder.create();
 			// 将要显示的对话框对应的布局文件转换成一个view
 			View view = View.inflate(getApplicationContext(),
 					R.layout.safe_activity_showdialog, null);
@@ -111,9 +121,12 @@ public class HomeActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					String setpsw = et_setpsw.getText().toString();
+					//采用md5对密码进行加密
+					//String md5safepsd = md5safe(setpsw);
 					sp.putString(getApplicationContext(), setpsw);
-					enterSafeActivity();
 					setDialog.dismiss();
+					enterSafeActivity();
+					
 				}
 			});
 			//点击取消点击事件
@@ -129,24 +142,28 @@ public class HomeActivity extends Activity {
 		} else {
 			// 当密码不为空时，取出密码与输入密码核对。第二次点击时弹出确认密码对话框
 			Builder builder = new AlertDialog.Builder(this);
-			final AlertDialog setDialog = builder.create();
+			final AlertDialog confirmDialog = builder.create();
 			// 将要显示的对话框对应的布局文件转换成一个view
 			View view = View.inflate(getApplicationContext(),
 					R.layout.safe_activity_confirmdialog, null);
+			confirmDialog.setView(view);
+			confirmDialog.show();
 			Button bt_secound_confirm  = (Button) view.findViewById(R.id.bt_secound_confirm);
 			Button bt_secound_cancle = (Button) view.findViewById(R.id.bt_secound_cancle);
-			EditText et_secound_confirmpsw = (EditText) view.findViewById(R.id.et_secound_confirmpsw);
-			secound_password = et_secound_confirmpsw.getText().toString();
+			et_secound_confirmpsw = (EditText) view.findViewById(R.id.et_secound_confirmpsw);
 			bt_secound_confirm.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					if (secound_password.equals(password)) {
+					secound_password = et_secound_confirmpsw.getText().toString().trim();
+					if(secound_password.equals(password)) {
 						// 如果输入的确认密码和第一次设置的密码一样，就进入手机防盗界面
+						confirmDialog.dismiss();
 						enterSafeActivity();
-						setDialog.dismiss();
+						
 					} else {
-						Toast.makeText(getApplicationContext(), "密码错误", 0).show();
-						setDialog.dismiss();
+						
+						Toast.makeText(getApplicationContext(), "密码错误,请重新输入", 0).show();
+						//confirmDialog.dismiss();
 					}
 					
 				}
@@ -155,12 +172,42 @@ public class HomeActivity extends Activity {
 			bt_secound_cancle.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					setDialog.dismiss();
+					confirmDialog.dismiss();
 				}
 			});
 			
 		}
 
+	}
+
+	/**
+	 * @param psw需要加密的字符串
+	 * @return 加密过后返回的字符串
+	 */
+	protected String md5safe(String psw) {
+		try {
+			//指定加密算法类型
+			MessageDigest digest = MessageDigest.getInstance("MD5");
+			StringBuffer sbuffer = new StringBuffer();
+			//讲密码转化为字符串并随机进行哈希过程
+			 byte[] bs = digest.digest(psw.getBytes());
+			 for (byte b : bs) {
+				 int i = b&0xff;
+				 //将i转化为两个字符串
+				 String hexString = Integer.toHexString(i);
+				 if(hexString.length()<2){
+					 hexString = "0"+hexString;
+				 }
+				md5psd = sbuffer.append(hexString).toString();
+			}
+			 
+			  
+		} catch (NoSuchAlgorithmException e) {
+			 
+			e.printStackTrace();
+		}
+		return md5psd;
+		
 	}
 
 	protected void enterSafeActivity() {
@@ -212,10 +259,7 @@ public class HomeActivity extends Activity {
 		}
 
 	}
-	
-	@Override
-	protected void onStop() {
-		super.onStop();
-	}
+	 
+	 
 
 }

@@ -45,7 +45,7 @@ public class sharePraferenceUtil {
 	public String getString(Context context){
 		sp = context.getSharedPreferences("config",Context.MODE_PRIVATE );
 		//默认保存为空
-	    String password = sp.getString("password", "");//获取checkbox的状态
+	    String password = sp.getString("password",null);//获取checkbox的状态
 	    return password;
 	}
 
